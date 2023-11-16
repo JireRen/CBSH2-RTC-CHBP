@@ -704,6 +704,50 @@ void CBS::savePaths(const string &fileName) const
     output.close();
 }
 
+// jire: savePath, but yaml
+void CBS::savePathsYAML(const string &fileName) const
+{
+
+    std::ofstream output;
+    output.open(fileName, std::ios::out);
+
+    if (solution_cost == -1)
+        output << "success: -1" << endl;
+    else if (solution_cost == -2)
+        output << "success: -2" << endl;
+    else if (solution_cost == -3)
+        output << "success: -3" << endl;
+    else if (solution_cost >= 0){
+        output << "success: 1" << endl;
+
+        output << "dim: [" << num_of_cols << ", " << num_of_rows << "]" << endl;
+        output << "num: " << num_of_agents << endl;
+        output << "cost: " << solution_cost << endl;
+        output << "runtime: " << runtime << endl;
+
+        // save these meta information for later
+        // output << "HighLevelExp: " << num_HL_expanded << endl;
+        // output << "HighLevelGen: " << num_HL_generated << endl;
+        // output << "LowLevelExp: " << num_LL_expanded << endl;
+        // output << "LowLevelGen: " << num_LL_generated << endl;
+
+        output << "schedule: " << endl;
+        int agent_t = 0;
+
+        for (int i = 0; i < num_of_agents; i++){
+            output << "  agent" << i << ":" << endl;
+            for (const auto & t : *paths[i]){
+                // [x: Col, y: Row]
+                output << "    - x: " << search_engines[0]->instance.getColCoordinate(t.location) << endl;
+                output << "      y: " << search_engines[0]->instance.getRowCoordinate(t.location) << endl;
+                output << "      t: " << agent_t << endl;
+                agent_t++;
+            }
+        }
+    }
+    output.close();
+}
+
 void CBS::printConflicts(const CBSNode &curr)
 {
 	for (const auto& conflict : curr.conflicts)
@@ -1153,6 +1197,8 @@ CBS::CBS(const Instance& instance, bool sipp, int screen) :
 	{
 		instance.printAgents();
 	}
+    num_of_rows = instance.num_of_rows;
+    num_of_cols = instance.num_of_cols;
 }
 
 bool CBS::generateRoot()

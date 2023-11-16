@@ -74,6 +74,8 @@ public:
 	void saveStats(const string &fileName, const string &instanceName) const;
 	void saveCT(const string &fileName) const; // write the CT to a file
     void savePaths(const string &fileName) const; // write the paths to a file
+    // jire: savePath, but yaml
+    void savePathsYAML(const string &fileName) const;
 
 	void clear(); // used for rapid random  restart
 
@@ -110,6 +112,11 @@ private:
 	clock_t start;
 
 	int num_of_agents;
+
+    //jire:
+    int num_of_rows;
+    int num_of_cols;
+
 
 
 	vector<Path*> paths;

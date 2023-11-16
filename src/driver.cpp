@@ -46,6 +46,9 @@ int main(int argc, char** argv)
 		("targetReasoning", po::value<bool>()->default_value(true), "Using target reasoning")
 		("restart", po::value<int>()->default_value(1), "number of restart times (at least 1)")
 		("sipp", po::value<bool>()->default_value(false), "using sipp as the single agent solver")
+
+        // params for YAML
+        ("yaml,y", po::value<string>()->default_value(""), "output the solver stats using YAML")
 		;
 
 	po::variables_map vm;
@@ -192,6 +195,10 @@ int main(int argc, char** argv)
 	}
     if (cbs.solution_found && vm.count("outputPaths"))
         cbs.savePaths(vm["outputPaths"].as<string>());
+    if (vm.count("yaml")){
+        cbs.savePathsYAML(vm["yaml"].as<string>());
+    }
+
 	cbs.clearSearchEngines();
 	return 0;
 
