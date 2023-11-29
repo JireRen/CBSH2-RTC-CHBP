@@ -731,10 +731,6 @@ void CBS::savePathsYAML(const string &fileName) const
         output << "LowLevelGen: " << num_LL_generated << endl;}
     else if (solution_cost >= 0){
         output << "success: 1" << endl;
-        output << "HighLevelExp: " << num_HL_expanded << endl;
-        output << "HighLevelGen: " << num_HL_generated << endl;
-        output << "LowLevelExp: " << num_LL_expanded << endl;
-        output << "LowLevelGen: " << num_LL_generated << endl;
 
         output << "dim: [" << num_of_cols << ", " << num_of_rows << "]" << endl;
         output << "num: " << num_of_agents << endl;
