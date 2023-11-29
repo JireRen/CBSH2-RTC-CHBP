@@ -711,14 +711,30 @@ void CBS::savePathsYAML(const string &fileName) const
     std::ofstream output;
     output.open(fileName, std::ios::out);
 
-    if (solution_cost == -1)
+    if (solution_cost == -1){
         output << "success: -1" << endl;
-    else if (solution_cost == -2)
+        output << "HighLevelExp: " << num_HL_expanded << endl;
+        output << "HighLevelGen: " << num_HL_generated << endl;
+        output << "LowLevelExp: " << num_LL_expanded << endl;
+        output << "LowLevelGen: " << num_LL_generated << endl;}
+    else if (solution_cost == -2){
         output << "success: -2" << endl;
-    else if (solution_cost == -3)
+        output << "HighLevelExp: " << num_HL_expanded << endl;
+        output << "HighLevelGen: " << num_HL_generated << endl;
+        output << "LowLevelExp: " << num_LL_expanded << endl;
+        output << "LowLevelGen: " << num_LL_generated << endl;}
+    else if (solution_cost == -3){
         output << "success: -3" << endl;
+        output << "HighLevelExp: " << num_HL_expanded << endl;
+        output << "HighLevelGen: " << num_HL_generated << endl;
+        output << "LowLevelExp: " << num_LL_expanded << endl;
+        output << "LowLevelGen: " << num_LL_generated << endl;}
     else if (solution_cost >= 0){
         output << "success: 1" << endl;
+        output << "HighLevelExp: " << num_HL_expanded << endl;
+        output << "HighLevelGen: " << num_HL_generated << endl;
+        output << "LowLevelExp: " << num_LL_expanded << endl;
+        output << "LowLevelGen: " << num_LL_generated << endl;
 
         output << "dim: [" << num_of_cols << ", " << num_of_rows << "]" << endl;
         output << "num: " << num_of_agents << endl;
@@ -726,10 +742,10 @@ void CBS::savePathsYAML(const string &fileName) const
         output << "runtime: " << runtime << endl;
 
         // save these meta information for later
-        // output << "HighLevelExp: " << num_HL_expanded << endl;
-        // output << "HighLevelGen: " << num_HL_generated << endl;
-        // output << "LowLevelExp: " << num_LL_expanded << endl;
-        // output << "LowLevelGen: " << num_LL_generated << endl;
+        output << "HighLevelExp: " << num_HL_expanded << endl;
+        output << "HighLevelGen: " << num_HL_generated << endl;
+        output << "LowLevelExp: " << num_LL_expanded << endl;
+        output << "LowLevelGen: " << num_LL_generated << endl;
 
         output << "schedule: " << endl;
         int agent_t = 0;
